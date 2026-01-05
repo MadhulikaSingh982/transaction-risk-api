@@ -1,12 +1,24 @@
 package com.example.transactionrisk.controller;
 
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import com.example.transactionrisk.model.Transaction;
+import com.example.transactionrisk.repository.TransactionRepository;
+import org.springframework.web.bind.annotation.*;
 
 @RestController
-@RequestMapping("/health")
+@RequestMapping("/transactions")
 public class TransactionController {
+
+    private final TransactionRepository repository;
+
+    public TransactionController(TransactionRepository repository) {
+        this.repository = repository;
+    }
+
+    @PostMapping
+    public Transaction create(@RequestBody Transaction transaction) {
+        transaction.setRisk("LOW");
+        return repository.save(transaction);
+    }
 
     @GetMapping
     public String health() {
