@@ -1,5 +1,6 @@
 package com.example.transactionrisk.controller;
 
+import com.example.transactionrisk.exception.ResourceNotFoundException;
 import com.example.transactionrisk.model.Transaction;
 import com.example.transactionrisk.repository.TransactionRepository;
 import com.example.transactionrisk.service.RiskAssessmentService;
@@ -28,7 +29,7 @@ public class TransactionController {
 
     @GetMapping("/{id}")
     public Transaction getById(@PathVariable Long id) {
-        return repository.findById(id).orElseThrow(() -> new RuntimeException("Transaction NOT Found"));
+        return repository.findById(id).orElseThrow(() -> new ResourceNotFoundException("Transaction NOT Found"));
     }
 
     @GetMapping
