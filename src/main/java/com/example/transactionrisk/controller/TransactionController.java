@@ -5,6 +5,8 @@ import com.example.transactionrisk.repository.TransactionRepository;
 import com.example.transactionrisk.service.RiskAssessmentService;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
+
 @RestController
 @RequestMapping("/transactions")
 public class TransactionController {
@@ -24,8 +26,13 @@ public class TransactionController {
         return repository.save(transaction);
     }
 
+    @GetMapping("/{id}")
+    public Transaction getById(@PathVariable Long id) {
+        return repository.findById(id).orElseThrow(() -> new RuntimeException("Transaction NOT Found"));
+    }
+
     @GetMapping
-    public String health() {
-        return "Transaction Risk API is running";
+    public List<Transaction> getByRisk(@RequestParam String risk) {
+        return repository.findByRisk(risk);
     }
 }
