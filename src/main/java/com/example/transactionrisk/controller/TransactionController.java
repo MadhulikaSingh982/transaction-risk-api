@@ -4,6 +4,7 @@ import com.example.transactionrisk.exception.ResourceNotFoundException;
 import com.example.transactionrisk.model.Transaction;
 import com.example.transactionrisk.repository.TransactionRepository;
 import com.example.transactionrisk.service.RiskAssessmentService;
+import jakarta.validation.Valid;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -21,7 +22,7 @@ public class TransactionController {
     }
 
     @PostMapping
-    public Transaction create(@RequestBody Transaction transaction) {
+    public Transaction create(@Valid @RequestBody Transaction transaction) {
         String risk = riskService.assessRisk(transaction);
         transaction.setRisk(risk);
         return repository.save(transaction);

@@ -1,6 +1,9 @@
 package com.example.transactionrisk.model;
 
 import jakarta.persistence.*;
+import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.NotNull;
+import jakarta.validation.constraints.Positive;
 
 @Entity
 @Table(name = "transactions")
@@ -10,8 +13,13 @@ public class Transaction {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
+    @NotNull
+    @Positive
     private Double amount;
+
+    @NotBlank
     private String country;
+
     private String risk;
 
     public Long getId() {
