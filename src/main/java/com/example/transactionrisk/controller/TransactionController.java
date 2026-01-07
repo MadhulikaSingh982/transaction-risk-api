@@ -1,6 +1,7 @@
 package com.example.transactionrisk.controller;
 
 import com.example.transactionrisk.exception.ResourceNotFoundException;
+import com.example.transactionrisk.model.RiskLevel;
 import com.example.transactionrisk.model.Transaction;
 import com.example.transactionrisk.repository.TransactionRepository;
 import com.example.transactionrisk.service.RiskAssessmentService;
@@ -23,7 +24,7 @@ public class TransactionController {
 
     @PostMapping
     public Transaction create(@Valid @RequestBody Transaction transaction) {
-        String risk = riskService.assessRisk(transaction);
+        RiskLevel risk = riskService.assessRisk(transaction);
         transaction.setRisk(risk);
         return repository.save(transaction);
     }
@@ -34,7 +35,7 @@ public class TransactionController {
     }
 
     @GetMapping
-    public List<Transaction> getByRisk(@RequestParam String risk) {
+    public List<Transaction> getByRisk(@RequestParam RiskLevel risk) {
         return repository.findByRisk(risk);
     }
 }

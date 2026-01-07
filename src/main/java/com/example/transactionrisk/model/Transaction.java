@@ -20,7 +20,8 @@ public class Transaction {
     @NotBlank
     private String country;
 
-    private String risk;
+    @Enumerated(EnumType.STRING)
+    private RiskLevel risk;
 
     public Long getId() {
         return id;
@@ -46,11 +47,11 @@ public class Transaction {
         this.country = country;
     }
 
-    public String getRisk() {
+    public RiskLevel getRisk() {
         return risk;
     }
 
-    public void setRisk(String risk) {
+    public void setRisk(RiskLevel risk) {
         this.risk = risk;
     }
 }
